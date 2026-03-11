@@ -1,6 +1,8 @@
 # ABOUTME: Fetches stock quote from Yahoo Finance.
 # ABOUTME: Returns price, volume, market cap, and key metrics.
 
+from datetime import datetime, timezone
+
 import yfinance as yf
 
 
@@ -16,6 +18,7 @@ def get_quote(symbol: str) -> dict:
     return {
         "symbol": symbol.upper(),
         "name": info.get("shortName", info.get("longName", "N/A")),
+        "fetched_at": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC"),
         "price": info.get("currentPrice") or info.get("regularMarketPrice"),
         "change": info.get("regularMarketChange"),
         "change_percent": info.get("regularMarketChangePercent"),
