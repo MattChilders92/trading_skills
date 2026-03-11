@@ -1,6 +1,8 @@
 # ABOUTME: Fetches option chain data from Yahoo Finance.
 # ABOUTME: Supports listing expiries and fetching chains by date.
 
+from datetime import datetime, timezone
+
 import pandas as pd
 import yfinance as yf
 
@@ -65,6 +67,7 @@ def get_option_chain(symbol: str, expiry: str) -> dict:
         "symbol": symbol.upper(),
         "source": "yfinance",
         "source_url": f"https://finance.yahoo.com/quote/{symbol}/options?p={symbol}",
+        "fetched_at": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC"),
         "expiry": expiry,
         "underlying_price": underlying_price,
         "calls": process_options(chain.calls),

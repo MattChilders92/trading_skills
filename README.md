@@ -158,13 +158,14 @@ The MCP server is a lightweight alternative for use with Claude Desktop (includi
 - "Generate portfolio action report" (requires IB)
 - "Find roll candidates for my GOOG short call" (requires IB)
 
-## Available Skills (21)
+## Available Skills (23)
 
 ### Market Data
 | Skill | Description |
 |-------|-------------|
 | `stock-quote` | Real-time price, volume, change, market cap, 52-week range |
-| `option-chain` | Calls and puts with strikes, bids, asks, volume, OI, IV |
+| `option-chain` | Calls and puts with strikes, bids, asks, volume, OI, IV — supports `--source yfinance\|tastytrade` |
+| `tastytrade-option-chain` | Real-time option chain via Tastytrade (requires Tastytrade account + OAuth tokens) |
 | `price-history` | Historical OHLCV data |
 | `fundamentals` | Financials, earnings, key metrics, Piotroski F-Score |
 | `news-sentiment` | Recent headlines and sentiment |
@@ -225,6 +226,20 @@ To use IB features:
 1. Install [TWS](https://www.interactivebrokers.com/en/trading/tws.php) or [IB Gateway](https://www.interactivebrokers.com/en/trading/ibgateway-stable.php)
 2. Enable API connections in TWS: Configure → API → Settings → Enable ActiveX and Socket Clients
 3. Note the port: 7497 (paper) or 7496 (live)
+
+## Tastytrade Setup
+
+To use real-time option chain pricing (`tastytrade-option-chain` or `--source tastytrade`):
+
+1. Log in to [developer.tastytrade.com](https://developer.tastytrade.com/) and create an app
+2. Copy your **Provider Secret** and generate a **Refresh Token**
+3. Set environment variables:
+   ```bash
+   export TT_SECRET="your-provider-secret"
+   export TT_REFRESH="your-refresh-token"
+   ```
+
+Unfunded Tastytrade accounts are supported — market data access does not require funding.
 
 ## Development
 
