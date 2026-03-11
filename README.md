@@ -249,15 +249,18 @@ To use Schwab portfolio features (`schwab-account`, `schwab-portfolio`):
 
 To use real-time option chain pricing (`tastytrade-option-chain` or `--source tastytrade`):
 
-1. Log in to [developer.tastytrade.com](https://developer.tastytrade.com/) and create an app
-2. Copy your **Provider Secret** and generate a **Refresh Token**
-3. Set environment variables:
+1. Log in to [my.tastytrade.com](https://my.tastytrade.com) and go to:
+   **Account > Settings > API Access > OAuth Applications**
+   (Direct URL: `https://my.tastytrade.com/app.html#/manage/api-access/oauth-applications`)
+2. Create an app, set callback URL `http://localhost:8000`, copy the **Client Secret** (`TT_SECRET`)
+3. Click **Manage > Create Grant** to generate your **Refresh Token** (`TT_REFRESH`)
+4. Set environment variables:
    ```bash
-   export TT_SECRET="your-provider-secret"
+   export TT_SECRET="your-client-secret"
    export TT_REFRESH="your-refresh-token"
    ```
 
-Unfunded Tastytrade accounts are supported — market data access does not require funding.
+Unfunded Tastytrade accounts are supported. Refresh tokens do not expire.
 
 ## Development
 
