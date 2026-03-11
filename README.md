@@ -158,7 +158,7 @@ The MCP server is a lightweight alternative for use with Claude Desktop (includi
 - "Generate portfolio action report" (requires IB)
 - "Find roll candidates for my GOOG short call" (requires IB)
 
-## Available Skills (23)
+## Available Skills (25)
 
 ### Market Data
 | Skill | Description |
@@ -189,6 +189,8 @@ The MCP server is a lightweight alternative for use with Claude Desktop (includi
 | Skill | Description |
 |-------|-------------|
 | `ib-account` | Account summary (cash, buying power, margin) |
+| `schwab-account` | Account summary from Charles Schwab (cash, buying power, net liquidation) |
+| `schwab-portfolio` | Portfolio positions from Charles Schwab (stocks + options) |
 | `ib-portfolio` | Portfolio positions with market prices |
 | `ib-option-chain` | Real-time option chain data from IB *(under development)* |
 | `ib-find-short-roll` | Roll candidates for short positions or covered call/put selection |
@@ -226,6 +228,22 @@ To use IB features:
 1. Install [TWS](https://www.interactivebrokers.com/en/trading/tws.php) or [IB Gateway](https://www.interactivebrokers.com/en/trading/ibgateway-stable.php)
 2. Enable API connections in TWS: Configure → API → Settings → Enable ActiveX and Socket Clients
 3. Note the port: 7497 (paper) or 7496 (live)
+
+## Charles Schwab Setup
+
+To use Schwab portfolio features (`schwab-account`, `schwab-portfolio`):
+
+1. Log in to [developer.schwab.com](https://developer.schwab.com/) and create an app
+2. Set environment variables:
+   ```bash
+   export SCHWAB_API_KEY="your-api-key"
+   export SCHWAB_APP_SECRET="your-app-secret"
+   ```
+3. Run the one-time browser authentication:
+   ```bash
+   uv run python -c "from trading_skills.broker.schwab.connection import first_time_setup; first_time_setup()"
+   ```
+   Token is saved to `~/.schwab_token.json` (override with `SCHWAB_TOKEN_PATH`).
 
 ## Tastytrade Setup
 
